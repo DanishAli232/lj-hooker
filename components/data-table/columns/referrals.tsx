@@ -32,8 +32,8 @@ export function referralsColumns(): ColumnDef<Referrals>[] {
             }
             className={
               row.getValue("type") === "Seller"
-                ? "bg-red-100 text-red-800 hover:bg-red-100"
-                : "bg-green-100 text-green-800 hover:bg-green-100"
+                ? "bg-[#9EE2FF] text-black hover:bg-[#9EE2FF]/85"
+                : "bg-[#FC9EFF] text-black hover:bg-[#FC9EFF]/85"
             }
           >
             {row.getValue("type")}

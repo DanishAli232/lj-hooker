@@ -3,45 +3,37 @@
 import React, { useState } from "react";
 import { DataTable } from "@/components/data-table";
 import { Card, CardContent } from "@/components/ui/card";
-import { Referrals } from "@/types/referrals";
 import CommonToolbar from "../data-table/toolbars/common-toolbar";
 import Stats from "../stats";
 import { TabsPages } from "../tabs";
-import { referralsColumns } from "../data-table/columns/referrals";
-import { ReferralToolbar } from "../data-table/toolbars/referrals";
 
-const referralsData: Referrals[] = [
+import { ProgressivePaymentsSchema } from "@/types/progressive-payments";
+import { progressivePaymentsColumns } from "../data-table/columns/progressive-payments";
+import { ProgressivePaymentToolbar } from "../data-table/toolbars/progressive-payments";
+
+const progressivePaymentsData: ProgressivePaymentsSchema[] = [
   {
-    date: "2023-01-01",
-    type: "Seller",
-    property_address: "123 Main St",
-    sale_price: 500000,
-    amount: 250000,
-    rate: 5,
-    salesperson: "John Doe",
+    id: "1",
+    address: "13123 Main Street, Anytown, CA 91234",
+    expectedSettlmentDate: "1/2/2024",
+    total_commission: "1000",
   },
   {
-    date: "2023-02-01",
-    type: "Seller",
-    property_address: "456 Elm St",
-    sale_price: 1000000,
-    amount: 500000,
-    rate: 5,
-    salesperson: "Jane Smith",
+    id: "2",
+    address: "23123 Main Street, Anytown, CA 91234",
+    expectedSettlmentDate: "1/2/2024",
+    total_commission: "500",
   },
   {
-    date: "2023-03-01",
-    type: "Buyer",
-    property_address: "789 Oak St",
-    sale_price: 750000,
-    amount: 375000,
-    rate: 5,
-    salesperson: "Bob Johnson",
+    id: "3",
+    address: "1244 Main Street, Anytown, CA 91234",
+    expectedSettlmentDate: "1/2/2024",
+    total_commission: "2000",
   },
 ];
 
-export const ReferralsPage = () => {
-  const [data] = useState<Referrals[]>(referralsData);
+export const ProgressivePaymentsPage = () => {
+  const [data] = useState<ProgressivePaymentsSchema[]>(progressivePaymentsData);
   const [error] = useState<any>(null);
   const [isLoading] = useState(false);
 
@@ -56,18 +48,18 @@ export const ReferralsPage = () => {
     <div className="flex flex-col gap-5">
       <CommonToolbar />
       <Stats />
-      <TabsPages type={"referrals"} />
+      <TabsPages type={"progressivePayments"} />
       <div className="">
         <Card className="border-none p-0 shadow-none">
           <CardContent className="p-0">
             <DataTable
               data={data || []}
-              columns={referralsColumns()}
-              toolbar={<ReferralToolbar />}
+              columns={progressivePaymentsColumns()}
+              toolbar={<ProgressivePaymentToolbar />}
               loading={isLoading}
               error={error}
               rowCount={data?.length || 0}
-              type="referrals"
+              type="progressivePayments"
               onGlobalFilterChange={() => {}}
               onPageChange={handlePageChange}
               onPageSizeChange={() => {}}

@@ -21,7 +21,7 @@ export function DataTablePagination<TData>({
   const pageCount = Math.ceil(totalRows / pageSize);
 
   return (
-    <div className="flex items-center justify-between py-4">
+    <div className="flex items-center justify-between ">
       <div className="text-sm text-gray-500">
         {" "}
         Page {pageIndex + 1} of {pageCount} row(s) selected.

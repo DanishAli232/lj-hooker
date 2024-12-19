@@ -34,8 +34,8 @@ export function type1Columns(): ColumnDef<Type1>[] {
             }
             className={
               row.getValue("status") === "Pending"
-                ? "bg-red-100 text-red-800 hover:bg-red-100"
-                : "bg-green-100 text-green-800 hover:bg-green-100"
+                ? "bg-[#FF808E] text-white hover:bg-[#FF808E]/90"
+                : "bg-[#9EFFA3] text-black hover:bg-[#9EFFA3]/90"
             }
           >
             {row.getValue("status")}

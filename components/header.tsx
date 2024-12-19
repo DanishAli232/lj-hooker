@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown, Menu, User } from "lucide-react";
+import { ChevronDown, Eye, Menu, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white">
-      <div className=" flex h-16 items-center px-4">
+      <div className=" flex h-16 items-center px-6">
         {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild>
@@ -77,14 +77,18 @@ export default function Navbar() {
 
         {/* Access User Button */}
         <div className="ml-auto flex items-center space-x-4">
-          <Button variant="default" className="hidden md:inline-flex">
+          <Button
+            variant="default"
+            className="hidden md:inline-flex bg-[#5F94F8] hover:bg-[#5F94F8]/85 gap-2"
+          >
+            <Eye className="w-4 h-4" />
             Access User
           </Button>
 
           {/* Location Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="hidden md:inline-flex">
+              <Button variant="outline" className="hidden md:inline-flex ">
                 LJ Hooker Coomera
                 <ChevronDown className="ml-2 h-4 w-4" />
               </Button>

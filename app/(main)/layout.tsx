@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <div className={"flex flex-col"}>
       <Navbar />
-      <main className="flex flex-col gap-4 p-4 ">{children}</main>
+      <main className="flex flex-col gap-4 p-6 ">{children}</main>
     </div>
   );
 }

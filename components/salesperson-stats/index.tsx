@@ -21,7 +21,7 @@ const salesPersonData: SalesPerson[] = [
     open: false,
     multi: false,
     other: "",
-    vim: "",
+    vim: "$5.00",
   },
   {
     salesperson: "Jane Smith",
@@ -34,7 +34,7 @@ const salesPersonData: SalesPerson[] = [
     open: false,
     multi: false,
     other: "",
-    vim: "",
+    vim: "$5.00",
   },
   {
     salesperson: "Bob Johnson",
@@ -47,7 +47,7 @@ const salesPersonData: SalesPerson[] = [
     open: false,
     multi: false,
     other: "",
-    vim: "",
+    vim: "$5.00",
   },
 ];
 
@@ -64,11 +64,11 @@ export const SalesPersonStats = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col gap-5">
       <CommonToolbar />
       <Stats />
       <TabsPages type={"salesPersonStats"} />
-      <h2 className="text-lg font-semibold mb-4 mt-6">
+      <h2 className="text-2xl font-bold flex items-center gap-2">
         Salesperson Stats
       </h2>{" "}
       <div className="">

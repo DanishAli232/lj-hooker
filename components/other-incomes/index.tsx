@@ -3,45 +3,43 @@
 import React, { useState } from "react";
 import { DataTable } from "@/components/data-table";
 import { Card, CardContent } from "@/components/ui/card";
-import { Referrals } from "@/types/referrals";
 import CommonToolbar from "../data-table/toolbars/common-toolbar";
 import Stats from "../stats";
 import { TabsPages } from "../tabs";
-import { referralsColumns } from "../data-table/columns/referrals";
-import { ReferralToolbar } from "../data-table/toolbars/referrals";
 
-const referralsData: Referrals[] = [
+import { otherIncomesColumns } from "../data-table/columns/other-incomes";
+import { OtherIncomesToolbar } from "../data-table/toolbars/other-incomes";
+import { OtherIncomes } from "@/types/other-incomes";
+
+const otherIncomesData: OtherIncomes[] = [
   {
-    date: "2023-01-01",
-    type: "Seller",
-    property_address: "123 Main St",
-    sale_price: 500000,
-    amount: 250000,
-    rate: 5,
+    id: "1",
+    date: "20/20/2025",
+    fee: 1000,
     salesperson: "John Doe",
+    description:
+      "Commission from the sale of a residential property located at 123 Main Street, Anytown, CA 91234.  Sale price was $500,000. Commission rate was 2%.",
   },
   {
-    date: "2023-02-01",
-    type: "Seller",
-    property_address: "456 Elm St",
-    sale_price: 1000000,
-    amount: 500000,
-    rate: 5,
+    id: "2",
+    date: "20/20/2025",
+    fee: 500,
     salesperson: "Jane Smith",
+    description:
+      "Rental income received from a property located at 456 Oak Avenue, Anytown, CA 91234.  Monthly rent is $1000.",
   },
   {
-    date: "2023-03-01",
-    type: "Buyer",
-    property_address: "789 Oak St",
-    sale_price: 750000,
-    amount: 375000,
-    rate: 5,
+    id: "3",
+    date: "20/20/2025",
+    fee: 2000,
     salesperson: "Bob Johnson",
+    description:
+      "Commission from property management services provided for a commercial property located at 789 Pine Lane, Anytown, CA 91234.  Management fee is 10% of annual gross income.",
   },
 ];
 
-export const ReferralsPage = () => {
-  const [data] = useState<Referrals[]>(referralsData);
+export const OtherIncomesPage = () => {
+  const [data] = useState<OtherIncomes[]>(otherIncomesData);
   const [error] = useState<any>(null);
   const [isLoading] = useState(false);
 
@@ -56,18 +54,18 @@ export const ReferralsPage = () => {
     <div className="flex flex-col gap-5">
       <CommonToolbar />
       <Stats />
-      <TabsPages type={"referrals"} />
+      <TabsPages type={"otherIncomes"} />
       <div className="">
         <Card className="border-none p-0 shadow-none">
           <CardContent className="p-0">
             <DataTable
               data={data || []}
-              columns={referralsColumns()}
-              toolbar={<ReferralToolbar />}
+              columns={otherIncomesColumns()}
+              toolbar={<OtherIncomesToolbar />}
               loading={isLoading}
               error={error}
               rowCount={data?.length || 0}
-              type="referrals"
+              type="otherIncomes"
               onGlobalFilterChange={() => {}}
               onPageChange={handlePageChange}
               onPageSizeChange={() => {}}

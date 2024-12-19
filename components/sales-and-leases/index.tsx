@@ -43,7 +43,7 @@ const SalesAndLeasesPage = () => {
     setCurrentPage(pageIndex);
   };
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <CommonToolbar />
       <Stats />
       <TabsPages type={"salesAndLeases"} />
@@ -61,7 +61,7 @@ const SalesAndLeasesPage = () => {
         currentPage={0}
         pagination={false}
       />
-      <h2 className="text-lg font-semibold mb-4 mt-6">
+      <h2 className="text-lg font-semibold">
         Listings Below Are Not Part of Any Franchise
       </h2>{" "}
       <DataTable
