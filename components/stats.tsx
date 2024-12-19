@@ -19,7 +19,7 @@ interface StatCardProps {
     | "status"
     | "leases"
     | "sales"
-    | "insurance"
+    | "referrals"
     | "pm"
     | "office"
     | "other"
@@ -83,10 +83,10 @@ const Stats = () => {
 
   const bgColor = (variant: StatCardProps["variant"]) => {
     return {
-      status: "bg-red-50",
+      status: "bg-orange-50",
       leases: "bg-blue-50",
       sales: "bg-green-50",
-      insurance: "bg-red-50",
+      referrals: "bg-red-50",
       pm: "bg-purple-50",
       office: "bg-indigo-50",
       other: "bg-gray-50",
