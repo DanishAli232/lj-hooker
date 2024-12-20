@@ -9,8 +9,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Drop Master",
-  description: "Drop Master: Your Ultimate Drop Shipping Solution",
+  title: "LJ Hooker",
+  description: "LJ Hooker",
 };
 
 export default function RootLayout({
