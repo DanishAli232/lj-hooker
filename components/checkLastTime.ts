@@ -6,7 +6,7 @@ export const checkLastTime = (time: Date) => {
   let displayTime;
   if (timeElapsed < 60000) {
     // 1 minute
-    let time = Math.round(timeElapsed / 1000);
+    const time = Math.round(timeElapsed / 1000);
     displayTime = ` ${time < 30 ? "10" : time < 60 ? "50" : "60"} sec ago`;
   } else if (timeElapsed < 3600000) {
     // 1 hour
