@@ -38,6 +38,8 @@ export function DataTable<TData, TValue>({
   rowCount,
   pagination,
   toolbar,
+  handleRowClick,
+  edit,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -107,7 +109,12 @@ export function DataTable<TData, TValue>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className="text-md font-medium">
+                  <TableHead
+                    key={header.id}
+                    className={`text-md font-medium ${
+                      edit ? "text-[#B7B7B7]" : "text-muted-foreground"
+                    }`}
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -140,9 +147,15 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
+                  onClick={() => {
+                    handleRowClick?.(row?.original);
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="py-3 text-xs ">
+                    <TableCell
+                      key={cell.id}
+                      className={`py-3 text-xs ${edit ? "text-[#B7B7B7]" : ""}`}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

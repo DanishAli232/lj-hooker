@@ -1,14 +1,10 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { TabsPages } from "../tabs";
-import CommonToolbar from "../data-table/toolbars/common-toolbar";
-import Stats from "../stats";
 
 export default function PimStatisticsPage() {
   return (
     <div className="flex flex-col gap-5">
-      <CommonToolbar />
-      <Stats />
       <TabsPages type={"otherIncomes"} />
       <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
         PIM Statistics
@@ -46,35 +42,44 @@ export default function PimStatisticsPage() {
             </div>
           </div>
         </div>
+        <div className="flex gap-5 flex-col w-1/2">
+          <div className=" p-4 border rounded-lg relative">
+            <h2 className="text-xl font-semibold mb-4 absolute top-[-16px] left-[11px] bg-[white] w-max">
+              Strata
+            </h2>
+            <div className="space-y-4 mt-2">
+              <div className="flex justify-between items-center">
+                <span>Total Strata</span>
+                <Input className="w-48" />
+              </div>
+              <div className="flex justify-between items-center">
+                <span>New Strata Plans</span>
+                <Input className="w-48" />
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Lost Strata Plans</span>
+                <Input className="w-48" />
+              </div>
+            </div>
+          </div>
 
-        <div className="w-1/2 p-4 border rounded-lg relative">
-          <h2 className="text-xl font-semibold mb-4 absolute top-[-16px] left-[11px] bg-[white] w-max">
-            Strata
-          </h2>
-          <div className="space-y-4 mt-2">
-            <div className="flex justify-between items-center">
-              <span>Total Strata</span>
-              <Input className="w-48" />
-            </div>
-            <div className="flex justify-between items-center">
-              <span>New Strata Plans</span>
-              <Input className="w-48" />
-            </div>
-            <div className="flex justify-between items-center">
-              <span>Lost Strata Plans</span>
-              <Input className="w-48" />
-            </div>
-            <div className="flex justify-between items-center">
-              <span>Monthly Average</span>
-              <Input className="w-48" />
-            </div>
-            <div className="flex justify-between items-center">
-              <span>Average Management fee %</span>
-              <Input className="w-48" />
-            </div>
-            <div className="flex justify-between items-center">
-              <span>Average rent per week</span>
-              <Input className="w-48" />
+          <div className=" p-4 border rounded-lg relative">
+            <h2 className="text-xl font-semibold mb-4 absolute top-[-16px] left-[11px] bg-[white] w-max">
+              Monthly Average
+            </h2>
+            <div className="space-y-4 mt-2">
+              <div className="flex justify-between items-center">
+                <span>Monthly Average</span>
+                <Input className="w-48" />
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Average Management fee %</span>
+                <Input className="w-48" />
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Average rent per week</span>
+                <Input className="w-48" />
+              </div>
             </div>
           </div>
         </div>

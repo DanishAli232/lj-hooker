@@ -3,13 +3,11 @@
 import React, { useState } from "react";
 import { DataTable } from "@/components/data-table";
 import { Card, CardContent } from "@/components/ui/card";
-import CommonToolbar from "../data-table/toolbars/common-toolbar";
-import Stats from "../stats";
 import { TabsPages } from "../tabs";
-
 import { otherIncomesColumns } from "../data-table/columns/other-incomes";
 import { OtherIncomesToolbar } from "../data-table/toolbars/other-incomes";
 import { OtherIncomes } from "@/types/other-incomes";
+import { OtherIncomeDialog } from "./other-income-dialog";
 
 const otherIncomesData: OtherIncomes[] = [
   {
@@ -42,6 +40,7 @@ export const OtherIncomesPage = () => {
   const [data] = useState<OtherIncomes[]>(otherIncomesData);
   const [error] = useState<any>(null);
   const [isLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageSize] = useState<number>(10);
@@ -49,11 +48,10 @@ export const OtherIncomesPage = () => {
   const handlePageChange = (pageIndex: number) => {
     setCurrentPage(pageIndex);
   };
+  const [edit] = useState(true);
 
   return (
     <div className="flex flex-col gap-5">
-      <CommonToolbar />
-      <Stats />
       <TabsPages type={"otherIncomes"} />
       <div className="">
         <Card className="border-none p-0 shadow-none">
@@ -61,7 +59,7 @@ export const OtherIncomesPage = () => {
             <DataTable
               data={data || []}
               columns={otherIncomesColumns()}
-              toolbar={<OtherIncomesToolbar />}
+              toolbar={<OtherIncomesToolbar setOpen={setOpen} />}
               loading={isLoading}
               error={error}
               rowCount={data?.length || 0}
@@ -72,10 +70,12 @@ export const OtherIncomesPage = () => {
               pageSize={pageSize}
               currentPage={currentPage}
               pagination={true}
+              edit={edit}
             />
           </CardContent>
         </Card>
       </div>
+      <OtherIncomeDialog open={open} onOpenChange={setOpen} />
     </div>
   );
 };

@@ -25,4 +25,6 @@ export interface DataTableProps<TData, TValue> {
   commontoolbar?: boolean;
   pagination?: boolean;
   toolbar?: React.ReactElement<DataTableToolbarProps<TData>>;
+  handleRowClick?: (rowData: any) => void;
+  edit?: boolean;
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ChevronDown, Eye, Menu, User } from "lucide-react";
+import logo from "@/public/logo.png";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,8 +12,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
+import { AccessUserPopup } from "./access-user-popup";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  const handleAccessUser = () => {
+    setOpen(true);
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white">
       <div className=" flex h-16 items-center px-6">
@@ -44,10 +54,15 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <div className="flex items-center">
-            <div className="h-6 w-6 bg-orange-500" />
-            <span className="ml-2 text-xl font-bold">LJ Hooker</span>
-          </div>
+          <Image
+            src={logo}
+            alt=""
+            className="h-full w-full "
+            width={200}
+            height={200}
+            priority
+            unoptimized={true}
+          />{" "}
         </Link>
 
         {/* Desktop Nav */}
@@ -78,6 +93,7 @@ export default function Navbar() {
         {/* Access User Button */}
         <div className="ml-auto flex items-center space-x-4">
           <Button
+            onClick={handleAccessUser}
             variant="default"
             className="hidden md:inline-flex bg-[#5F94F8] hover:bg-[#5F94F8]/85 gap-2"
           >
@@ -109,6 +125,7 @@ export default function Navbar() {
           </Avatar>
         </div>
       </div>
+      <AccessUserPopup open={open} onOpenChange={setOpen} />
     </header>
   );
 }

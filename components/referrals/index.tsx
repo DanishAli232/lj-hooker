@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import { DataTable } from "@/components/data-table";
 import { Card, CardContent } from "@/components/ui/card";
 import { Referrals } from "@/types/referrals";
-import CommonToolbar from "../data-table/toolbars/common-toolbar";
-import Stats from "../stats";
 import { TabsPages } from "../tabs";
 import { referralsColumns } from "../data-table/columns/referrals";
 import { ReferralToolbar } from "../data-table/toolbars/referrals";
+import { ReferralDialog } from "./referral-detail";
 
 const referralsData: Referrals[] = [
   {
@@ -44,18 +43,21 @@ export const ReferralsPage = () => {
   const [data] = useState<Referrals[]>(referralsData);
   const [error] = useState<any>(null);
   const [isLoading] = useState(false);
-
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageSize] = useState<number>(10);
+  const [open, setOpen] = useState(false);
+  const [edit] = useState(true);
 
   const handlePageChange = (pageIndex: number) => {
     setCurrentPage(pageIndex);
   };
 
+  const handleAddNew = () => {
+    setOpen(true);
+  };
+
   return (
     <div className="flex flex-col gap-5">
-      <CommonToolbar />
-      <Stats />
       <TabsPages type={"referrals"} />
       <div className="">
         <Card className="border-none p-0 shadow-none">
@@ -63,7 +65,7 @@ export const ReferralsPage = () => {
             <DataTable
               data={data || []}
               columns={referralsColumns()}
-              toolbar={<ReferralToolbar />}
+              toolbar={<ReferralToolbar handleAddNew={handleAddNew} />}
               loading={isLoading}
               error={error}
               rowCount={data?.length || 0}
@@ -74,10 +76,12 @@ export const ReferralsPage = () => {
               pageSize={pageSize}
               currentPage={currentPage}
               pagination={true}
+              edit={edit}
             />
           </CardContent>
         </Card>
       </div>
+      <ReferralDialog open={open} onOpenChange={setOpen} />
     </div>
   );
 };

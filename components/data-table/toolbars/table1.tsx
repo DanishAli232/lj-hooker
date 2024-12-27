@@ -11,7 +11,7 @@ export function Table1Toolbar() {
         LJ Hooker Coomera
       </h1>
       <Link href="/sales-and-leases">
-        <Button className="bg-[#3D9D6F] hover:bg-[#3D9D6F]/85 gap-2">
+        <Button className=" gap-2">
           <Plus className=" h-4 w-4" /> Create New
         </Button>
       </Link>

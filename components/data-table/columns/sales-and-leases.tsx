@@ -3,20 +3,34 @@ import { DataTableColumnHeader } from "../data-table-column-header";
 import { SalesAndLeases } from "@/types/sales-and-leases";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export function salesAndLeasesColumns(): ColumnDef<SalesAndLeases>[] {
+export function salesAndLeasesColumns(
+  edit: boolean,
+  handleCheckboxChange: (record: SalesAndLeases) => void,
+  selectedData: SalesAndLeases[]
+): ColumnDef<SalesAndLeases>[] {
   return [
     {
       accessorKey: "checkbox",
       header: ({}) => (
         <div className="text-center">
-          <Checkbox />
+          <Checkbox disabled={edit} />
         </div>
       ),
-      cell: ({}) => (
-        <div className="text-center">
-          <Checkbox />
-        </div>
-      ),
+      cell: ({ row }) => {
+        const record = row.original;
+        return (
+          <div className="text-center">
+            <Checkbox
+              disabled={edit}
+              onClick={() => {
+                console.log("true....");
+                handleCheckboxChange(record);
+              }}
+              checked={!!selectedData?.find((item) => item.id === record.id)}
+            />
+          </div>
+        );
+      },
       enableSorting: false,
       enableHiding: true,
     },

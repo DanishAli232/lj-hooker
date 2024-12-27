@@ -4,7 +4,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../data-table-column-header";
 import { SalesPerson } from "@/types/salesperson";
 
-export function salespersonColumns(): ColumnDef<SalesPerson>[] {
+export function salespersonColumns(
+  handleAppraisel: (appr: string) => void
+): ColumnDef<SalesPerson>[] {
   return [
     {
       accessorKey: "salesperson",
@@ -49,7 +51,12 @@ export function salespersonColumns(): ColumnDef<SalesPerson>[] {
         <DataTableColumnHeader column={column} title="Appraisal" />
       ),
       cell: ({ row }) => (
-        <div className="text-left">{row.getValue("appr")}</div>
+        <div
+          className="text-left text-blue-500 underline cursor-pointer"
+          onClick={() => handleAppraisel(row.getValue("appr"))}
+        >
+          {row.getValue("appr")}
+        </div>
       ),
       enableSorting: false,
       enableHiding: false,
@@ -73,7 +80,7 @@ export function salespersonColumns(): ColumnDef<SalesPerson>[] {
         <DataTableColumnHeader column={column} title="Exclusive" />
       ),
       cell: ({ row }) => (
-        <div className="text-left whitespace-nowrap">
+        <div className="text-left whitespace-nowrap text-blue-500 underline cursor-pointer">
           {row.getValue("excl") ? "Yes" : "No"}
         </div>
       ),
@@ -138,7 +145,9 @@ export function salespersonColumns(): ColumnDef<SalesPerson>[] {
         <DataTableColumnHeader column={column} title="VIM" />
       ),
       cell: ({ row }) => (
-        <div className="text-left whitespace-nowrap">{row.getValue("vim")}</div>
+        <div className="text-left whitespace-nowrap text-blue-500 underline cursor-pointer">
+          {row.getValue("vim")}
+        </div>
       ),
       enableSorting: false,
       enableHiding: false,
