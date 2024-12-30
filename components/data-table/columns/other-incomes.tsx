@@ -1,6 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../data-table-column-header";
 import { OtherIncomes } from "@/types/other-incomes"; // Updated import
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function otherIncomesColumns(): ColumnDef<OtherIncomes>[] {
   return [
@@ -48,15 +49,23 @@ export function otherIncomesColumns(): ColumnDef<OtherIncomes>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Salesperson" />
       ),
-      cell: (
-        { row } // Added row to access data
-      ) => (
-        <div className="text-left whitespace-nowrap w-[150px]">
-          {row.getValue("salesperson")}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const salesperson = row.getValue("salesperson") as string
+        return (
+          <div className="flex items-center gap-2 w-[200px]">
+            <Avatar className="h-8 w-8">
+              <AvatarImage
+                src={`https://avatar.vercel.sh/${salesperson}.png`}
+                alt={salesperson}
+              />
+              <AvatarFallback>{salesperson.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <span className="truncate">{salesperson}</span>
+          </div>
+        )
+      },
       enableSorting: false,
       enableHiding: false,
-    },
+    }
   ];
 }

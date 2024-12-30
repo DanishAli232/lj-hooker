@@ -39,7 +39,7 @@ export function ProgressivePaymentActions({}: ProgressivePayment) {
           <Edit className="mr-2 h-4 w-4 -mt-[1px]" />
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem className="items-center cursor-pointer">
+        <DropdownMenuItem className="items-center cursor-pointer bg-red-500 focus:bg-red-700 focus:text-white  text-white">
           <Trash2 className="mr-2 h-4 w-4 -mt-[1px]" />
           Delete
         </DropdownMenuItem>

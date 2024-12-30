@@ -28,7 +28,7 @@ export function ListingInfoDialog({
         <div className="space-y-4">
           <div className="space-y-2">
             {addresses.map((address, index) => (
-              <Card key={index} className="text-sm rounded-sm p-2">
+              <Card key={index} className="text-sm rounded-sm p-2 shadow-none">
                 {address}
               </Card>
             ))}

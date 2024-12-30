@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -23,7 +22,6 @@ export default function RootLayout({
       <html lang="en">
         <body className={cn("bg-background", inter.className)}>
           {children}
-          <Toaster />
         </body>
       </html>
     </TooltipProvider>

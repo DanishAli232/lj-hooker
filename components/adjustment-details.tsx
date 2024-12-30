@@ -1,6 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +20,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Input } from "./ui/input";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { toast } from "sonner";
 
 interface AdjustmentDetailsProps {
   open: boolean;
@@ -39,19 +44,40 @@ const adjustmentValues = [
   { value: "CategoryTwoRemoval", content: "Adjustment - Category Two Removal" },
 ];
 
+const adjustmentSchema = z.object({
+  reason: z.string().min(1, "Please select a reason for adjustment"),
+  details: z.string(),
+  totalIncome: z.string().optional(),
+  franchise: z.string().optional(),
+});
+
+type AdjustmentFormValues = z.infer<typeof adjustmentSchema>;
+
 export function AdjustmentDetails({
   open,
   onOpenChange,
-  onSubmit,
+  onSubmit: propOnSubmit,
   onCancel,
 }: AdjustmentDetailsProps) {
-  const [reason, setReason] = React.useState("");
-  const [details, setDetails] = React.useState("");
+  const form = useForm<AdjustmentFormValues>({
+    resolver: zodResolver(adjustmentSchema),
+    defaultValues: {
+      reason: "",
+      details: "",
+      totalIncome: "",
+      franchise: "",
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit({ reason, details });
-  };
+  const selectedReason = form.watch("reason");
+
+  function onSubmit(data: AdjustmentFormValues) {
+    console.log(data);
+    propOnSubmit({ reason: data.reason, details: data.details });
+    toast.success("Adjustment details submitted successfully.");
+    form.reset();
+    onOpenChange(false);
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -64,70 +90,109 @@ export function AdjustmentDetails({
             All the other income details here
           </p>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Reason for Adjustment</label>
-            <Select value={reason} onValueChange={setReason}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                {adjustmentValues.map((item, i) => (
-                  <SelectItem value={item.value} key={i}>
-                    {item.content}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          {reason === "AddProperty" ? (
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Franchises</label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Franchise" />
-                </SelectTrigger>
-                <SelectContent></SelectContent>
-              </Select>
-            </div>
-          ) : (
-            (reason === "CategoryOneRemoval" ||
-              reason === "CategoryOneAddition" ||
-              reason === "CategoryTwoAddition" ||
-              reason === "CategorytwoRemoval") && (
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Total Income</label>
-                <Input
-                  value={details}
-                  onChange={(e) => setDetails(e.target.value)}
-                  placeholder="$-23,000"
-                  className="resize-none"
-                  disabled={
-                    reason === "CategoryOneRemoval" ||
-                    reason === "CategoryOneAddition"
-                  }
-                />
-              </div>
-            )
-          )}
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Additional Details</label>
-            <Textarea
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
-              placeholder="Enter Details"
-              className="min-h-[120px] resize-none"
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="reason"
+              render={({ field }) => (
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-sm font-medium text-foreground">Reason for Adjustment</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {adjustmentValues.map((item, i) => (
+                        <SelectItem value={item.value} key={i}>
+                          {item.content}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="flex gap-4 justify-end pt-2">
-            <Button type="button" variant="outline" onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button type="submit" className="bg-[#3CB179] hover:bg-[#2f8b5f]">
-              Submit
-            </Button>
-          </div>
-        </form>
+
+            {selectedReason === "AddProperty" ? (
+              <FormField
+                control={form.control}
+                name="franchise"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel className="text-sm font-medium text-foreground">Franchises</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Franchise" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent></SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ) : (
+              (selectedReason === "CategoryOneRemoval" ||
+                selectedReason === "CategoryOneAddition" ||
+                selectedReason === "CategoryTwoAddition" ||
+                selectedReason === "CategorytwoRemoval") && (
+                <FormField
+                  control={form.control}
+                  name="totalIncome"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className="text-sm font-medium text-foreground">Total Income</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="$-23,000"
+                          className="resize-none"
+                          disabled={
+                            selectedReason === "CategoryOneRemoval" ||
+                            selectedReason === "CategoryOneAddition"
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )
+            )}
+
+            <FormField
+              control={form.control}
+              name="details"
+              render={({ field }) => (
+                <FormItem className="space-y-2">
+                  <FormLabel className="text-sm font-medium text-foreground">Additional Details</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      placeholder="Enter Details"
+                      className="min-h-[120px] resize-none"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex gap-4 justify-end pt-2">
+              <Button type="button" variant="outline" onClick={onCancel}>
+                Cancel
+              </Button>
+              <Button type="submit" className="bg-[#3CB179] hover:bg-[#2f8b5f]">
+                Submit
+              </Button>
+            </div>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
