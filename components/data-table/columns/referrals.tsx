@@ -3,6 +3,7 @@ import { DataTableColumnHeader } from "../data-table-column-header";
 import { Referrals } from "@/types/referrals";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 export function referralsColumns(): ColumnDef<Referrals>[] {
   return [
@@ -100,14 +101,42 @@ export function referralsColumns(): ColumnDef<Referrals>[] {
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Salesperson" />
       ),
-      cell: ({}) => (
-        <div className="text-left whitespace-nowrap">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>{" "}
-        </div>
-      ),
+      cell: ({ row }) => {
+        const salesperson = row.original;
+
+        return (
+          <div className="text-left whitespace-nowrap">
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-fit" side="right">
+                <div className="flex items-center gap-2">
+                  <Avatar>
+                    <AvatarImage
+                      src="https://github.com/shadcn.png"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col gap-2">
+                    <span className="font-medium">Abdul John</span>
+                    <span className="left-0 rounded  px-2 py-0.5 text-xs font-medium text-primary">
+                      60%
+                    </span>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          </div>
+        );
+      },
       enableSorting: false,
       enableHiding: false,
     },

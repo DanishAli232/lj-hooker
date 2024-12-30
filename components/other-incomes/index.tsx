@@ -48,7 +48,7 @@ export const OtherIncomesPage = () => {
   const handlePageChange = (pageIndex: number) => {
     setCurrentPage(pageIndex);
   };
-  const [edit] = useState(true);
+  const [edit] = useState(false);
 
   return (
     <div className="flex flex-col gap-5">

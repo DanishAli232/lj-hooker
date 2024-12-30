@@ -103,7 +103,7 @@ export function DataTable<TData, TValue>({
       )}
 
       {error && <div className="text-red-500">{error}</div>}
-      <div className="rounded-md border">
+      <div className="rounded-md border p-2">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

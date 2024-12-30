@@ -121,6 +121,9 @@ const SalesAndLeasesPage = () => {
         pagination={true}
         edit={edit}
       />
+      <div className="text-center text-[#ED5E63] text-lg font-semibold">
+        <p>All values must be exclusive of GST</p>
+      </div>
     </div>
   );
 };
