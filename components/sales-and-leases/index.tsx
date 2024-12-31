@@ -47,7 +47,7 @@ const SalesAndLeasesPage = () => {
     useState<SalesAndLeases[]>(propertyData);
   const [error] = useState<any>(null);
   const [isLoading] = useState(false);
-  const [edit] = useState(false);
+  const [edit] = useState(true);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageSize] = useState<number>(10);
 

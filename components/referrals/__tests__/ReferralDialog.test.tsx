@@ -1,25 +1,11 @@
 import React from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ReferralDialog } from '../referral-detail'
 
 // Mock the onOpenChange function
 const mockOnOpenChange = jest.fn()
 
-// Correct dummy data
-const correctData = {
-  date: '2023-07-01',
-  type: 'type1',
-  propertyAddress: '123 Test St',
-  salePrice: '100000',
-  referralRate: '5',
-  salespeople: [
-    { id: 1, person: 'person1', percentage: '60' },
-    { id: 2, person: 'person2', percentage: '20' },
-    { id: 3, person: 'person3', percentage: '10' },
-    { id: 4, person: 'person4', percentage: '10' },
-  ],
-}
 
 describe('ReferralDialog', () => {
   beforeEach(() => {
@@ -62,4 +48,8 @@ describe('ReferralDialog', () => {
     // Verify dialog close was triggered
     expect(mockOnOpenChange).toHaveBeenCalledWith(false)
   })
+  it('renders the dialog when open is true', () => {
+    render(<ReferralDialog open={true} onOpenChange={mockOnOpenChange} />);
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
 })

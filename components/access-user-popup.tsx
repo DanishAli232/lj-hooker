@@ -44,7 +44,7 @@ export function AccessUserPopup({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md" aria-describedby="dialog-description">
         <DialogHeader>
           <DialogTitle>Access User</DialogTitle>
           <p className="text-sm text-muted-foreground">

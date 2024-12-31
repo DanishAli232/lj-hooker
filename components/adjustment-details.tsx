@@ -184,7 +184,7 @@ export function AdjustmentDetails({
             />
 
             <div className="flex gap-4 justify-end pt-2">
-              <Button type="button" variant="outline" onClick={onCancel}>
+              <Button type="button" variant="outline" onClick={() => { onCancel(); onOpenChange(false); }}>
                 Cancel
               </Button>
               <Button type="submit" className="bg-[#3CB179] hover:bg-[#2f8b5f]">
