@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Ellipsis, Trash2, Loader2, Edit } from "lucide-react";
+import { Ellipsis, Trash2, Loader2, Edit, CircleCheckBig } from "lucide-react";
 import { Row } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,6 +47,10 @@ export function Table1Actions({ row }: table1) {
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
+        <DropdownMenuItem className="items-center cursor-pointer">
+          <CircleCheckBig className="mr-2 h-4 w-4 -mt-[1px]" />
+          Finalize
+        </DropdownMenuItem>
         <DropdownMenuItem className="items-center cursor-pointer">
           <Edit className="mr-2 h-4 w-4 -mt-[1px]" />
           Edit

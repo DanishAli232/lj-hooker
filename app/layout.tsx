@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 // Import the monospace font
 const inter = Inter({ subsets: ["latin"] });
@@ -18,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <UserProvider>
     <TooltipProvider>
       <html lang="en">
         <body className={cn("bg-background", inter.className)}>
@@ -25,5 +27,6 @@ export default function RootLayout({
         </body>
       </html>
     </TooltipProvider>
+    </UserProvider>
   );
 }

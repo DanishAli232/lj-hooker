@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown, Eye, Menu, User } from "lucide-react";
+import { ChevronDown, Eye, LogOut, Menu, User, Users } from "lucide-react";
 import logo from "@/public/logo.png";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,12 +15,26 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { AccessUserPopup } from "./access-user-popup";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Navbar() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const { user, isLoading, error } = useUser();
+  // console.log(user);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleAccessUser = () => {
     setOpen(true);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleLogout = async () => {
+    window.location.href = "/api/auth/logout";
   };
 
   return (
@@ -115,14 +129,47 @@ export default function Navbar() {
               <DropdownMenuItem>LJ Hooker Gold Coast</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <div className="inline-flex items-center justify-center cursor-pointer hover:bg-gray-100 rounded-full p-2">
+            <Users className="h-5 w-5" onClick={()=>router.push('/users')}/>
+          </div>
 
           {/* User Avatar */}
-          <Avatar>
-            <AvatarImage src="/placeholder.svg" />
-            <AvatarFallback>
-              <User className="h-5 w-5" />
-            </AvatarFallback>
-          </Avatar>
+          {user ? (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar className="w-10 h-10">
+                    <AvatarImage
+                      src={
+                        user.picture ||
+                        `https://avatar.vercel.sh/${user.name}.png`
+                      }
+                    />
+                    <AvatarFallback>K</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer w-fit"
+                  >
+                    <LogOut />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <Avatar
+              onClick={() => router.push("/sign-in")}
+              className="cursor-pointer"
+            >
+              <AvatarImage src="/placeholder.svg" />
+              <AvatarFallback>
+                <User className="h-5 w-5" />
+              </AvatarFallback>
+            </Avatar>
+          )}
         </div>
       </div>
       <AccessUserPopup open={open} onOpenChange={setOpen} />

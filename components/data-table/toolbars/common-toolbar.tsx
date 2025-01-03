@@ -42,7 +42,7 @@ const CommonToolbar = () => {
           LJ Hooker Coomera
         </h1>
       </div>
-      <div className="flex flex-row items-center gap-2">
+      <div>
         {edit && (
           <div className="inline-flex items-center gap-2 rounded-sm bg-white px-3 py-2 text-sm shadow-sm border">
             <Checkbox checked={true} className="h-4 w-4 text-green-500 " />
@@ -52,7 +52,8 @@ const CommonToolbar = () => {
             </span>
           </div>
         )}
-
+      </div>
+      <div className="flex flex-row items-center gap-2">
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -64,7 +65,7 @@ const CommonToolbar = () => {
             >
               <CalendarIcon />
               {date ? (
-                format(new Date(date), "MMM dd, yyyy")
+                format(new Date(date), "MM/yyyy")
               ) : (
                 <span>Pick a date</span>
               )}

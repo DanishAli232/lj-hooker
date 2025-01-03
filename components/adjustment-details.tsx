@@ -47,7 +47,7 @@ const adjustmentValues = [
 const adjustmentSchema = z.object({
   reason: z.string().min(1, "Please select a reason for adjustment"),
   details: z.string(),
-  totalIncome: z.string().optional(),
+  totalIncome: z.string().regex(/^\$-\d+(\.\d{1,4})?$/, "Total Income must be in the format $-<number> or $-<number>.<two decimal places>").optional(),
   franchise: z.string().optional(),
 });
 
@@ -70,6 +70,7 @@ export function AdjustmentDetails({
   });
 
   const selectedReason = form.watch("reason");
+  console.log("selectedReason",selectedReason);
 
   function onSubmit(data: AdjustmentFormValues) {
     console.log(data);
@@ -140,7 +141,7 @@ export function AdjustmentDetails({
               (selectedReason === "CategoryOneRemoval" ||
                 selectedReason === "CategoryOneAddition" ||
                 selectedReason === "CategoryTwoAddition" ||
-                selectedReason === "CategorytwoRemoval") && (
+                selectedReason === "CategoryTwoRemoval") && (
                 <FormField
                   control={form.control}
                   name="totalIncome"
@@ -150,12 +151,23 @@ export function AdjustmentDetails({
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="$-23,000"
+                          placeholder="$-23,000.00"
                           className="resize-none"
                           disabled={
                             selectedReason === "CategoryOneRemoval" ||
                             selectedReason === "CategoryOneAddition"
                           }
+                          value={field.value}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/[^0-9.]/g, '');
+                            const parts = value.split('.');
+                            if (parts.length <= 2) {
+                              const formattedValue = parts.length === 2 ? `$-${parts[0]}.${parts[1]}` : `$-${parts[0]}`;
+                              field.onChange(formattedValue);
+                            } else {
+                              field.onChange('');
+                            }
+                          }}
                         />
                       </FormControl>
                       <FormMessage />

@@ -1,10 +1,16 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import loginImage from "@/public/login-image.jpg";
 import logo from "@/public/logo.png";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { user, error, isLoading } = useUser();
+  console.log("user was", user);
   return (
     <div className="flex min-h-screen">
       {/* Left side with image */}
@@ -57,7 +63,17 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <Button className="w-full ">Login with SSO</Button>
+          {
+            user ? (
+              <Link href={`/api/auth/logout`}>
+                <Button className="w-full">Logout</Button>
+              </Link>
+            ) : (
+              <Link href={`/api/auth/login`}>
+                <Button className="w-full">Login with SSO</Button>
+              </Link>
+            )
+          }
 
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{" "}
