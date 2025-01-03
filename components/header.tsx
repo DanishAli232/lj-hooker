@@ -21,16 +21,12 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 export default function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const { user, isLoading, error } = useUser();
+  const { user } = useUser();
   // console.log(user);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleAccessUser = () => {
     setOpen(true);
-  };
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
   };
 
   const handleLogout = async () => {

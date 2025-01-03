@@ -5,11 +5,9 @@ import { Button } from "@/components/ui/button";
 import loginImage from "@/public/login-image.jpg";
 import logo from "@/public/logo.png";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter();
-  const { user, error, isLoading } = useUser();
+  const { user } = useUser();
   console.log("user was", user);
   return (
     <div className="flex min-h-screen">

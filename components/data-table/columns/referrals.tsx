@@ -28,9 +28,7 @@ export function referralsColumns(): ColumnDef<Referrals>[] {
       cell: ({ row }) => (
         <div className="text-left whitespace-nowrap">
           <Badge
-            variant={
-              row.getValue("type") === "Seller" ? "destructive" : "outline"
-            }
+            variant={row.getValue("type") === "Seller" ? "destructive" : "outline"}
             className={
               row.getValue("type") === "Seller"
                 ? "bg-[#9EE2FF] text-black hover:bg-[#9EE2FF]/85"
@@ -102,32 +100,25 @@ export function referralsColumns(): ColumnDef<Referrals>[] {
         <DataTableColumnHeader column={column} title="Salesperson" />
       ),
       cell: ({ row }) => {
-        const salesperson = row.original;
-
+        const salesperson = row.getValue("salesperson") as { name: string; image: string };
         return (
           <div className="text-left whitespace-nowrap">
             <HoverCard>
               <HoverCardTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                  />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src={salesperson.image || "https://github.com/shadcn.png"} alt={salesperson.name} />
+                  <AvatarFallback>{salesperson.name?.slice(0, 2).toUpperCase() || "UN"}</AvatarFallback>
                 </Avatar>
               </HoverCardTrigger>
               <HoverCardContent className="w-fit" side="right">
                 <div className="flex items-center gap-2">
                   <Avatar>
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
-                    />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarImage src={salesperson.image || "https://github.com/shadcn.png"} alt={salesperson.name} />
+                    <AvatarFallback>{salesperson.name?.slice(0, 2).toUpperCase() || "UN"}</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col gap-2">
-                    <span className="font-medium">Abdul John</span>
-                    <span className="left-0 rounded  px-2 py-0.5 text-xs font-medium text-primary">
+                    <span className="font-medium">{salesperson.name}</span>
+                    <span className="left-0 rounded px-2 py-0.5 text-xs font-medium text-primary">
                       60%
                     </span>
                   </div>

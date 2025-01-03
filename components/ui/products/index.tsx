@@ -2,7 +2,7 @@
 
 import { failedToast } from "@/components/customizeToast";
 import { Product } from "@/types/products";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/data-table";
 import { productColumns } from "@/components/data-table/columns/products";
@@ -46,7 +46,7 @@ export default function ProductsPage() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -59,11 +59,11 @@ export default function ProductsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentPage, pageSize, searchQuery]);
 
   useEffect(() => {
     fetchContacts();
-  }, [currentPage, pageSize, searchQuery]);
+  }, [fetchContacts]);
 
   const handleGlobalFilterChange = (filter: string) => {
     if (!searchQuery && !filter) {
