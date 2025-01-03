@@ -59,7 +59,14 @@ export function PropertyInfoDialog({
             <Input
               type="text"
               value={formData.totalCommission}
-              onChange={(e) => setFormData({ ...formData, totalCommission: e.target.value })}
+              onChange={(e) => {
+                const value = e.target.value;
+                // Allow only numeric values in the format 12345.12
+                // Prevent the input from being cleared completely
+                if (/^\d*\.?\d{0,2}$/.test(value) || value === "") {
+                  setFormData({ ...formData, totalCommission: value });
+                }
+              }}
               placeholder="$"
             />
             {errors.totalCommission && <p className="text-red-500">{errors.totalCommission}</p>}
